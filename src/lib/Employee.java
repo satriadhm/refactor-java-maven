@@ -12,14 +12,8 @@ public class Employee extends Person {
 	private Date joinedDate;
 	private int monthWorkingInYear;
 
-	private boolean isForeigner;
-
-	private String spouseName;
-	private String spouseIdNumber;
+	private AdditionalInformation additionalInformation;
 	private Compensation compensation;
-
-	private List<String> childNames;
-	private List<String> childIdNumbers;
 
 	public Employee(String employeeId, String firstName, String lastName, String idNumber, String address,
 			Date joinedDate, boolean isForeigner, Gender gender) {
@@ -29,10 +23,9 @@ public class Employee extends Person {
 		this.idNumber = idNumber;
 		this.address = address;
 		this.joinedDate = joinedDate;
-		this.isForeigner = isForeigner;
+		additionalInformation = new AdditionalInformation(isForeigner, "", "", new LinkedList<String>(),
+				new LinkedList<String>());
 		this.gender = gender;
-		childNames = new LinkedList<String>();
-		childIdNumbers = new LinkedList<String>();
 		compensation = new Compensation();
 		compensation.setAnnualDeductible(0);
 		compensation.setAdditionalIncome(0);
@@ -50,30 +43,20 @@ public class Employee extends Person {
 	public void setSalary(int grade) {
 		if (grade == 1) {
 			compensation.setMonthlySalary(3000000);
-			if (isForeigner) {
+			if (additionalInformation.getIsForeigner()) {
 				compensation.setMonthlySalary((int) (3000000 * 1.5));
 			}
 		} else if (grade == 2) {
 			compensation.setMonthlySalary(5000000);
-			if (isForeigner) {
+			if (additionalInformation.getIsForeigner()) {
 				compensation.setMonthlySalary((int) (3000000 * 1.5));
 			}
 		} else if (grade == 3) {
 			compensation.setMonthlySalary(7000000);
-			if (isForeigner) {
+			if (additionalInformation.getIsForeigner()) {
 				compensation.setMonthlySalary((int) (3000000 * 1.5));
 			}
 		}
-	}
-
-	public void setSpouse(String spouseName, String spouseIdNumber) {
-		this.spouseName = spouseName;
-		this.spouseIdNumber = idNumber;
-	}
-
-	public void addChild(String childName, String childIdNumber) {
-		childNames.add(childName);
-		childIdNumbers.add(childIdNumber);
 	}
 
 	public int getAnnualIncomeTax() {
@@ -92,6 +75,6 @@ public class Employee extends Person {
 
 		return TaxFunction.calculateTax(compensation.getMonthlySalary(), compensation.getOtherMonthlyIncome(),
 				monthWorkingInYear, compensation.getAnnualDeductible(),
-				spouseIdNumber.equals(""), childIdNumbers.size());
+				additionalInformation.getSpouseIdNumber().equals(""), additionalInformation.getChildIdNumbers().size());
 	}
 }
