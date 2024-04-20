@@ -8,21 +8,16 @@ import java.util.Date;
 public class Employee extends Person {
 
 	private String employeeId;
-
 	private Date joinedDate;
 	private int monthWorkingInYear;
-
 	private AdditionalInformation additionalInformation;
 	private Compensation compensation;
 
-	public Employee(String employeeId, String firstName, String lastName, String idNumber, String address,
+	public Employee(String employeeId, Person person,
 			Date joinedDate, boolean isForeigner, Gender gender) {
-		this.employeeId = employeeId;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.idNumber = idNumber;
-		this.address = address;
-		this.joinedDate = joinedDate;
+		super(person.getFirstName(), person.getLastName(), person.getIdNumber(), person.getAddress(),
+				person.getGender());
+		setEmployeeId(employeeId);
 		additionalInformation = new AdditionalInformation(isForeigner, "", "", new LinkedList<String>(),
 				new LinkedList<String>());
 		this.gender = gender;
@@ -31,6 +26,14 @@ public class Employee extends Person {
 		compensation.setAdditionalIncome(0);
 		compensation.setMonthlySalary(0);
 
+	}
+
+	public String getEmployeeId() {
+		return employeeId;
+	}
+
+	public void setEmployeeId(String employeeId) {
+		this.employeeId = employeeId;
 	}
 
 	/**
@@ -58,7 +61,6 @@ public class Employee extends Person {
 			}
 		}
 	}
-
 	public int getAnnualIncomeTax() {
 
 		// Menghitung berapa lama pegawai bekerja dalam setahun ini, jika pegawai sudah
