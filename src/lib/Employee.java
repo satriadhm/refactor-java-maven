@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Date;
 
 public class Employee {
 
@@ -13,9 +14,7 @@ public class Employee {
 	private String idNumber;
 	private String address;
 	
-	private int yearJoined;
-	private int monthJoined;
-	private int dayJoined;
+	private Date joinedDate;
 	private int monthWorkingInYear;
 	
 	private boolean isForeigner;
@@ -31,15 +30,13 @@ public class Employee {
 	private List<String> childNames;
 	private List<String> childIdNumbers;
 	
-	public Employee(String employeeId, String firstName, String lastName, String idNumber, String address, int yearJoined, int monthJoined, int dayJoined, boolean isForeigner, boolean gender) {
+	public Employee(String employeeId, String firstName, String lastName, String idNumber, String address, Date joinedDate, boolean isForeigner, boolean gender) {
 		this.employeeId = employeeId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.idNumber = idNumber;
 		this.address = address;
-		this.yearJoined = yearJoined;
-		this.monthJoined = monthJoined;
-		this.dayJoined = dayJoined;
+		this.joinedDate = joinedDate;
 		this.isForeigner = isForeigner;
 		this.gender = gender;
 		
@@ -93,6 +90,8 @@ public class Employee {
 		
 		//Menghitung berapa lama pegawai bekerja dalam setahun ini, jika pegawai sudah bekerja dari tahun sebelumnya maka otomatis dianggap 12 bulan.
 		LocalDate date = LocalDate.now();
+		int yearJoined = joinedDate.getYear();
+		int monthJoined = joinedDate.getMonth();
 		
 		if (date.getYear() == yearJoined) {
 			monthWorkingInYear = date.getMonthValue() - monthJoined;
