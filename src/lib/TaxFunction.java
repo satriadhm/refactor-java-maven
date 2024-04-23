@@ -10,7 +10,7 @@ public class TaxFunction {
 	public static int calculateTax(int monthlySalary, int otherMonthlyIncome, int numberOfMonthWorking, int deductible,
 			boolean isMarried, int numberOfChildren) {
 		if (numberOfMonthWorking > 12) {
-			System.err.println("More than 12 months working per year");
+			throw new IllegalArgumentException("More than 12 months working per year");
 		}
 
 		if (numberOfChildren > 3) {
