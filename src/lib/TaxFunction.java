@@ -1,6 +1,5 @@
 package lib;
 
-
 public class TaxFunction {
 
 	public static final int BASE_INCOME_TAX_THRESHOLD = 54000000;
@@ -10,8 +9,6 @@ public class TaxFunction {
 
 	public static int calculateTax(int monthlySalary, int otherMonthlyIncome, int numberOfMonthWorking, int deductible,
 			boolean isMarried, int numberOfChildren) {
-		int tax = 0;
-
 		if (numberOfMonthWorking > 12) {
 			System.err.println("More than 12 months working per year");
 		}
@@ -20,14 +17,15 @@ public class TaxFunction {
 			numberOfChildren = 3;
 		}
 
+		int totalIncome = (monthlySalary + otherMonthlyIncome) * numberOfMonthWorking;
+		int totalDeductions = deductible + BASE_INCOME_TAX_THRESHOLD + BASE_INSURANCE_THRESHOLD
+				+ (numberOfChildren * CHILD_ALLOWANCE_PER_CHILD);
+
 		if (isMarried) {
-			tax = (int) Math.round(TAX_RATE * (((monthlySalary + otherMonthlyIncome) * numberOfMonthWorking)
-					- deductible - (BASE_INCOME_TAX_THRESHOLD + BASE_INSURANCE_THRESHOLD
-							+ (numberOfChildren * CHILD_ALLOWANCE_PER_CHILD))));
-		} else {
-			tax = (int) Math.round(TAX_RATE * (((monthlySalary + otherMonthlyIncome) * numberOfMonthWorking)
-					- deductible - BASE_INCOME_TAX_THRESHOLD));
+			totalDeductions -= CHILD_ALLOWANCE_PER_CHILD; // Deduct one child allowance if married
 		}
+
+		int tax = (int) Math.round(TAX_RATE * (totalIncome - totalDeductions));
 
 		if (tax < 0) {
 			return 0;
