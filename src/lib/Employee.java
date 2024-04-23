@@ -2,7 +2,6 @@ package lib;
 
 import java.time.LocalDate;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Date;
 
 public class Employee extends Person {
@@ -61,6 +60,7 @@ public class Employee extends Person {
 			}
 		}
 	}
+	
 	public int getAnnualIncomeTax() {
 
 		// Menghitung berapa lama pegawai bekerja dalam setahun ini, jika pegawai sudah
